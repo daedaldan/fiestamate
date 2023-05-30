@@ -1,9 +1,0 @@
-/**
- * 
- */
-/**
- * @author danielwang
- *
- */
-module FiestaMate {
-}
