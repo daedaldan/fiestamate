@@ -15,6 +15,20 @@ public class Festival {
 		this.festivalEvents = processEventsFile(fileName);
 	}
 	
+	public ArrayList<Event> getFestivalEvents() {
+		return this.festivalEvents;
+	}
+	
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		for (Event currentEvent: this.festivalEvents) {
+			sb.append(currentEvent);
+			sb.append("\n\n");
+		}
+		
+		return sb.toString();
+	}
+	
 	/*  
 	 * Uses Scanner to read event details stored in CSV file row-by-row.
 	 * Each row contains details for a single Event object.
@@ -38,12 +52,14 @@ public class Festival {
 	}
 	
 	private Event processEventData(String data) {
+		// split input String data into separate variables
 		String[] eventData = data.split(";");
 		String title = eventData[0];
 		String description = eventData[1];
 		String location = eventData[2];
 		LocalDateTime dateTime;
 		
+		// combine date and time values in String to create LocalDateTime object
 		try {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 			dateTime = LocalDateTime.parse(eventData[3] + " " + eventData[4], formatter);
@@ -51,7 +67,8 @@ public class Festival {
 			dateTime = LocalDateTime.of(2000, Month.JANUARY, 1, 0, 0);
 			System.out.println(e);
 		}
-			
+		
+		// initialize Event object using input String's details
 		Event myEvent = new Event(title, description, location, dateTime);
 		
 		return myEvent;

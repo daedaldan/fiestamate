@@ -4,21 +4,19 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Event {
-	private static int numEvents = 0;
+	protected static int numEvents = 0;
 	
 	private String title;
 	private String description;
 	private String location;
 	private LocalDateTime eventDateTime;
-	private int eventID;
-	private int attendees;
+	protected int eventID;
 	
 	public Event(String title, String description, String location, LocalDateTime eventDateTime) {
 		this.title = title;
 		this.description = description;
 		this.location = location;
 		this.eventDateTime = eventDateTime;
-		this.attendees = 0;
 		
 		numEvents++;
 		this.eventID = numEvents;
@@ -38,6 +36,10 @@ public class Event {
 	
 	public LocalDateTime getEventDateTime() {
 		return this.eventDateTime;
+	}
+	
+	public int getEventID() {
+		return this.eventID;
 	}
 	
 	public String toString() {
