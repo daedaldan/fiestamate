@@ -54,6 +54,8 @@ public class Festival {
 	private Event processEventData(String data) {
 		// split input String data into separate variables
 		String[] eventData = data.split(";");
+		String eventType = eventData[5];
+		
 		String title = eventData[0];
 		String description = eventData[1];
 		String location = eventData[2];
@@ -68,9 +70,14 @@ public class Festival {
 			System.out.println(e);
 		}
 		
-		// initialize Event object using input String's details
-		Event myEvent = new Event(title, description, location, dateTime);
-		
-		return myEvent;
+		// initialize object using input String's details
+		if (eventType.equals("Concert")) {
+			String performer = eventData[6];
+			String musicType = eventData[7];
+			
+			return new Concert(title, description, location, dateTime, performer, musicType);
+		} else {
+			return new Event(title, description, location, dateTime);
+		}
 	}
 }

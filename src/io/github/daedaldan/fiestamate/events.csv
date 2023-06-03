@@ -1,4 +1,5 @@
-Title;Description;Location;Date;Time;Ticket Price;Attendance Cap
-Blacksmithing;Come watch a demonstration of blacksmithing techniques used in the colonial era.;Blacksmith Shop;2022-10-08;10:00;Free;N/A
-Pottery;Learn how 18th century colonists created everyday houseware out of clay.;Surveyor’s Shop;2022-10-09;14:00;Free;N/A
-Jam Sale;Sample and purchase a variety of locally made fruit jams.;Corner Yard;2022-10-10;09:00;Free;N/A
+Title;Description;Location;Date;Time;Event Type;Performer;Music Type
+Blacksmithing;Come watch a demonstration of blacksmithing techniques used in the colonial era.;Blacksmith Shop;2022-10-08;10:00;Event;N/A;N/A
+Pottery;Learn how 18th century colonists created everyday houseware out of clay.;Surveyor’s Shop;2022-10-09;14:00;Event;N/A;N/A
+Jam Sale;Sample and purchase a variety of locally made fruit jams.;Corner Yard;2022-10-10;09:00;Event;N/A;N/A
+My Concert;My Description;Concert Hall;2022-10-09;21:00;Concert;Taylor Swift;Pop
