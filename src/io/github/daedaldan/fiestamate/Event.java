@@ -1,6 +1,7 @@
 package io.github.daedaldan.fiestamate;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Event {
 	private static int numEvents = 0;
@@ -37,5 +38,10 @@ public class Event {
 	
 	public LocalDateTime getEventDateTime() {
 		return this.eventDateTime;
+	}
+	
+	public String toString() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm 'on' MM/dd/yyyy");
+		return this.title + ": " + this.description + "\n" + this.location + ", " + this.eventDateTime.format(formatter);
 	}
 }
