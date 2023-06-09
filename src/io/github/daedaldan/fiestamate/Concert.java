@@ -7,8 +7,8 @@ public class Concert extends Event {
 	private String musicType;
 	
 	public Concert(String title, String description, String location, LocalDateTime eventDateTime, 
-			       String performer, String musicType) {
-		super(title, description, location, eventDateTime);
+			       double price, String performer, String musicType) {
+		super(title, description, location, eventDateTime, price);
 		
 		this.performer = performer;;
 		this.musicType = musicType;
@@ -24,6 +24,6 @@ public class Concert extends Event {
 	
 	@Override
 	public String toString() {
-		return super.toString() + "\n" + this.musicType + " Concert by " + this.performer;
+		return super.toString() + ", " + this.musicType + " Concert by " + this.performer;
 	}
 }

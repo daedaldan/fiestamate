@@ -54,12 +54,13 @@ public class Festival {
 	private Event processEventData(String data) {
 		// split input String data into separate variables
 		String[] eventData = data.split(";");
-		String eventType = eventData[5];
+		String eventType = eventData[6];
 		
 		String title = eventData[0];
 		String description = eventData[1];
 		String location = eventData[2];
 		LocalDateTime dateTime;
+		double price = Double.parseDouble(eventData[5]);
 		
 		// combine date and time values in String to create LocalDateTime object
 		try {
@@ -72,12 +73,16 @@ public class Festival {
 		
 		// initialize object using input String's details
 		if (eventType.equals("Concert")) {
-			String performer = eventData[6];
-			String musicType = eventData[7];
+			String performer = eventData[8];
+			String musicType = eventData[9];
 			
-			return new Concert(title, description, location, dateTime, performer, musicType);
+			return new Concert(title, description, location, dateTime, price, performer, musicType);
+		} else if (eventType.equals("Food")) {
+			String menuItem = eventData[7];
+			
+			return new Food(title, description, location, dateTime, price, menuItem);
 		} else {
-			return new Event(title, description, location, dateTime);
+			return new Event(title, description, location, dateTime, price);
 		}
 	}
 }

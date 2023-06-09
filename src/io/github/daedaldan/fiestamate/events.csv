@@ -1,5 +1,6 @@
-Title;Description;Location;Date;Time;Event Type;Performer;Music Type
-Blacksmithing;Come watch a demonstration of blacksmithing techniques used in the colonial era.;Blacksmith Shop;2022-10-08;10:00;Event;N/A;N/A
-Pottery;Learn how 18th century colonists created everyday houseware out of clay.;Surveyor’s Shop;2022-10-09;14:00;Event;N/A;N/A
-Jam Sale;Sample and purchase a variety of locally made fruit jams.;Corner Yard;2022-10-10;09:00;Event;N/A;N/A
-My Concert;My Description;Concert Hall;2022-10-09;21:00;Concert;Taylor Swift;Pop
+Title;Description;Location;Date;Time;Price;Event Type;Menu Item;Performer;Music Type;
+Blacksmithing;Come watch a demonstration of blacksmithing techniques used in the colonial era.;Blacksmith Shop;2022-10-08;10:00;0.00;Event;N/A;N/A;N/A
+Pottery;Learn how 18th century colonists created everyday houseware out of clay.;Surveyor’s Shop;2022-10-09;14:00;0.00;Event;N/A;N/A;N/A
+Jam Sale;Sample and purchase a variety of locally made fruit jams.;Corner Yard;2022-10-10;09:00;0.00;Event;N/A;N/A;N/A
+Eras Concert;Taylor Swift performs her hit songs.;Concert Hall;2022-10-09;21:00;30.00;Concert;N/A;Taylor Swift;Pop
+Tom's Sandwiches;Enjoy savory chicken sandwiches at Tom's celebrated food truck.;Food Area;2022-10-08;12:00;5.00;Food;Chicken Sandwich;N/A;N/A
