@@ -32,8 +32,6 @@ public class FiestaMate extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
-		System.out.println(harvestDay);
-		
 		primaryStage.setTitle("Fiesta Mate");
 		
 		// Create UI components
@@ -71,15 +69,20 @@ public class FiestaMate extends Application {
 		itineraryList = FXCollections.observableArrayList();
 		itineraryListView.setItems(itineraryList);
 		
-		// Create button
+		// Create button to add events to itinerary
         Button addButton = new Button("Add to My Events");
         addButton.setOnAction(e -> addToItinerary());
         addButton.setPrefWidth(200);
+        
+     // Create button to export itinerary events
+        Button exportButton = new Button("Export My Events to Downloads");
+        exportButton.setOnAction(e -> exportItinerary());
+        exportButton.setPrefWidth(200);
 		
 		// Add components to containers
 		listContainer.getChildren().addAll(titleText, descriptionText, 
 											festivalListView, addButton,
-											itineraryText, itineraryListView);
+											itineraryText, itineraryListView, exportButton);
 		
 		mainPane.setCenter(listContainer);
 		
@@ -91,5 +94,20 @@ public class FiestaMate extends Application {
 	private void addToItinerary() {
 		ObservableList<Event> selectedItems = festivalListView.getSelectionModel().getSelectedItems();
 		itineraryList.addAll(selectedItems);
+	}
+	
+	private void exportItinerary() {
+		String itineraryString = getItineraryAsString();
+		ItineraryToPDF.export(itineraryString, "/Users/danielwang/Downloads/festival_events.PDF");
+	}
+	
+	private String getItineraryAsString() {
+		 StringBuffer sb = new StringBuffer();
+
+	        for (Event item : itineraryList) {
+	            sb.append(item).append("\n");
+	        }
+
+	        return sb.toString();
 	}
 }
