@@ -1,6 +1,5 @@
 package io.github.daedaldan.fiestamate;
 
-import java.io.FileOutputStream;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;

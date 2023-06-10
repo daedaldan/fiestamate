@@ -14,13 +14,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class FiestaMate extends Application {
+	// Create Festival object using CSV and TXT file paths
 	private Festival harvestDay = new Festival("/Users/danielwang/git/fiestamate/src/io/github/daedaldan/fiestamate/events.csv",
 												"/Users/danielwang/git/fiestamate/src/io/github/daedaldan/fiestamate/festival.txt");
+	
+	// Create ListView and ObservableList objects for festival events and itinerary events
 	private ListView<Event> festivalListView;
 	private ObservableList<Event> festivalList;
 	private ListView<Event> itineraryListView;
@@ -32,9 +34,10 @@ public class FiestaMate extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
+		// set title of application
 		primaryStage.setTitle("Fiesta Mate");
 		
-		// Create UI components
+		// Create main UI components
 		BorderPane mainPane = new BorderPane();
 		mainPane.setPadding(new Insets(10));
 		
@@ -74,7 +77,7 @@ public class FiestaMate extends Application {
         addButton.setOnAction(e -> addToItinerary());
         addButton.setPrefWidth(200);
         
-     // Create button to export itinerary events
+        // Create button to export itinerary events
         Button exportButton = new Button("Export My Events to Downloads");
         exportButton.setOnAction(e -> exportItinerary());
         exportButton.setPrefWidth(200);
@@ -91,16 +94,19 @@ public class FiestaMate extends Application {
 		primaryStage.show();
 	}
 	
+	// Add selected events from festivalListView to itineraryList
 	private void addToItinerary() {
 		ObservableList<Event> selectedItems = festivalListView.getSelectionModel().getSelectedItems();
 		itineraryList.addAll(selectedItems);
 	}
 	
+	//  Export itinerary events as PDF using ItineraryToPDF class
 	private void exportItinerary() {
 		String itineraryString = getItineraryAsString();
 		ItineraryToPDF.export(itineraryString, "/Users/danielwang/Downloads/festival_events.PDF");
 	}
 	
+	// Returns String with text for each itinerary event separated by new line
 	private String getItineraryAsString() {
 		 StringBuffer sb = new StringBuffer();
 
