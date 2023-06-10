@@ -10,15 +10,40 @@ import java.time.format.DateTimeParseException;
 
 public class Festival {
 	private ArrayList<Event> festivalEvents = new ArrayList<Event>();
+	private String title;
+	private String description;
 	
-	public Festival(String fileName) {
-		this.festivalEvents = processEventsFile(fileName);
+	public Festival(String eventsFileName, String festivalFileName) {
+		this.festivalEvents = processEventsFile(eventsFileName);
+		
+		// Read festival title and description from text file with details
+		try (Scanner scan = new Scanner(new File(festivalFileName))) {
+			// read title of festival from first line
+			this.title = scan.nextLine();
+			// read description of festival from second line
+			this.description = scan.nextLine();
+		} catch (Exception e) {
+			System.out.println(e);
+			
+			// Add generic title and description if error occurs while opening or reading file
+			this.title = "Festival";
+			this.description = "No description found";
+		}
 	}
 	
 	public ArrayList<Event> getFestivalEvents() {
 		return this.festivalEvents;
 	}
 	
+	public String getTitle() {
+		return this.title;
+	}
+	
+	public String getDescription() {
+		return this.description;
+	}
+	
+	// Returns String combining the text for each event separated by a new line
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		for (Event currentEvent: this.festivalEvents) {
@@ -71,7 +96,7 @@ public class Festival {
 			System.out.println(e);
 		}
 		
-		// initialize object using input String's details
+		// initialize object using input String's details and event type
 		if (eventType.equals("Concert")) {
 			String performer = eventData[8];
 			String musicType = eventData[9];
