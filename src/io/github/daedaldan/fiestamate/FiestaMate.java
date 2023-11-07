@@ -12,108 +12,120 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class FiestaMate extends Application {
-	// Create Festival object using CSV and TXT file paths
-	private Festival harvestDay = new Festival("/Users/danielwang/git/fiestamate/src/io/github/daedaldan/fiestamate/events.csv",
+	// Create Festival object using CSV and TXT file paths.
+	private static Festival harvestDay = new Festival("/Users/danielwang/git/fiestamate/src/io/github/daedaldan/fiestamate/events.csv",
 												"/Users/danielwang/git/fiestamate/src/io/github/daedaldan/fiestamate/festival.txt");
 	
-	// Create ListView and ObservableList objects for festival events and itinerary events
-	private ListView<Event> festivalListView;
-	private ObservableList<Event> festivalList;
-	private ListView<Event> itineraryListView;
-	private ObservableList<Event> itineraryList;
+	// Create ListView and ObservableList objects for the event details and user itinerary.
+	private static ObservableList<Event> eventsList = FXCollections.observableArrayList(harvestDay.getFestivalEvents());	
+	private static ObservableList<Event> itineraryList = FXCollections.observableArrayList();
+	ListView<Event> eventsListView;
+	ListView<Event> itineraryListView;
 	
-	public static void main(String[] args) {		
+	/*
+	 * Start the JavaFX application by calling launch in the main method.
+	 */
+	public static void main(String[] args) {
 		launch(args);
 	}
 	
-	@Override
+	/**
+	 * Display the festival events and user itinerary events in separate ListViews,
+	 * with buttons allowing the user to add selected events to his/her itinerary and export
+	 * his/her itinerary as a PDF.
+	 */
 	public void start(Stage primaryStage) {
-		// set title of application
-		primaryStage.setTitle("Fiesta Mate");
+		// Set the title of the window.
+		primaryStage.setTitle("FiestaMate");
 		
-		// Create main UI components
+		// Create a BorderPane for the root of the Scene with padding on each side.
 		BorderPane mainPane = new BorderPane();
 		mainPane.setPadding(new Insets(10));
 		
+		// Create a VBox to store the ListViews and Buttons.
 		VBox listContainer = new VBox();
+		// Horizontally center the child widgets.
 		listContainer.setAlignment(Pos.CENTER);
+		// Set the vertical spacing between the child widgets.
 		listContainer.setSpacing(10);
 		
-		// Create title text element
-        Text titleText = new Text(this.harvestDay.getTitle());
-        titleText.setFont(Font.font("Arial", FontWeight.BOLD, 24));
-
-        // Create description text element
-        Text descriptionText = new Text(this.harvestDay.getDescription());
-        descriptionText.setFont(Font.font("Arial", 16));
-        descriptionText.setWrappingWidth(680);
-        descriptionText.setTextAlignment(TextAlignment.CENTER);
-        
-		// Create list view for festival events
-		festivalListView = new ListView<>();
-		festivalListView.setPrefHeight(400);
-		festivalListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		festivalList = FXCollections.observableArrayList(harvestDay.getFestivalEvents());
-		festivalListView.setItems(festivalList);
+		// Create text for the title.
+		Text titleText = new Text(this.harvestDay.getTitle());
+		titleText.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
 		
-		// Create heading text for itinerary
-        Text itineraryText = new Text("My Events");
-        itineraryText.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+		// Create text for the description.
+		Text descriptionText = new Text(this.harvestDay.getDescription());
+		descriptionText.setFont(Font.font("Helvetica", 16));
+		descriptionText.setWrappingWidth(680);
+		descriptionText.setTextAlignment(TextAlignment.CENTER);
+				
+		// Initialize the ListView for the events list.
+		eventsListView = new ListView<>(eventsList);
+		eventsListView.setPrefHeight(200);
 		
-		// Create list view for itinerary events
-		itineraryListView = new ListView<>();
+		// Create heading text for the itinerary.
+		Text itineraryText = new Text("My Events");
+		itineraryText.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
+		
+		// Initialize the ListView for the itinerary list.
+		itineraryListView = new ListView<>(itineraryList);
 		itineraryListView.setPrefHeight(200);
-		itineraryList = FXCollections.observableArrayList();
-		itineraryListView.setItems(itineraryList);
 		
-		// Create button to add events to itinerary
-        Button addButton = new Button("Add to My Events");
-        addButton.setOnAction(e -> addToItinerary());
-        addButton.setPrefWidth(200);
-        
-        // Create button to export itinerary events
-        Button exportButton = new Button("Export My Events to Downloads");
-        exportButton.setOnAction(e -> exportItinerary());
-        exportButton.setPrefWidth(200);
+		// Create a button to add events to the itinerary.
+		Button addButton = new Button("Add to My Events");
+		addButton.setOnAction(e -> addToItinerary());
+		addButton.setPrefWidth(200);
 		
-		// Add components to containers
-		listContainer.getChildren().addAll(titleText, descriptionText, 
-											festivalListView, addButton,
+		// Create a button to export itinerary events.
+		Button exportButton = new Button("Export My Events to Downloads");
+		exportButton.setOnAction(e -> exportItinerary());
+		exportButton.setPrefWidth(200);
+		
+		// Add widgets to containers.
+		listContainer.getChildren().addAll(titleText, descriptionText, eventsListView, addButton, 
 											itineraryText, itineraryListView, exportButton);
-		
 		mainPane.setCenter(listContainer);
 		
-		Scene scene = new Scene(mainPane, 700, 700);
-		primaryStage.setScene(scene);
+		// Set the scene of the stage to the mainPane and show the stage.
+		primaryStage.setScene(new Scene(mainPane, 700, 700));
 		primaryStage.show();
 	}
 	
-	// Add selected events from festivalListView to itineraryList
+	/**
+	 * Adds the selected items in the events ListView to the itineraryList ObservableList.
+	 */
 	private void addToItinerary() {
-		ObservableList<Event> selectedItems = festivalListView.getSelectionModel().getSelectedItems();
+		// Get the selected items in the events ListView's selection model.
+		ObservableList<Event> selectedItems = eventsListView.getSelectionModel().getSelectedItems();
+		// Add the selected Event items to itineraryList.
 		itineraryList.addAll(selectedItems);
 	}
 	
-	//  Export itinerary events as PDF using ItineraryToPDF class
+	/**
+	 * Exports the itinerary events as a PDF to the user's Downloads folder using the ItineraryToPDF class.
+	 */
 	private void exportItinerary() {
 		String itineraryString = getItineraryAsString();
 		ItineraryToPDF.export(itineraryString, "/Users/danielwang/Downloads/festival_events.PDF");
 	}
 	
-	// Returns String with text for each itinerary event separated by new line
+	/**
+	 * Returns String with text for each itinerary event separated by new line.
+	 * 
+	 * @return String with text for each itinerary event separated by new line.
+	 */
 	private String getItineraryAsString() {
 		 StringBuffer sb = new StringBuffer();
 
-	        for (Event item : itineraryList) {
-	            sb.append(item).append("\n");
-	        }
+	     for (Event item : itineraryList) {
+	    	 sb.append(item).append("\n");
+	     }
 
-	        return sb.toString();
+	     return sb.toString();
 	}
 }
